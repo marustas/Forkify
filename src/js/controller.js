@@ -20,9 +20,11 @@ const controlRecipe = async function () {
   } catch (err) { alert(err.message) }
 };
 
-['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, controlRecipe)
-);
+const init = function () {
+  recipeView.addHandlerRender(controlRecipe);
+}
+
+init();
 
 // https://forkify-api.herokuapp.com/v2
 
