@@ -2,7 +2,7 @@ class SearchView {
     _parentElement = document.querySelector('.search');
 
     getQuery() {
-        const query = this._parentElement.querySelector('.search_field').value;
+        const query = this._parentElement.querySelector('.search__field').value;
         this.clearSearch();
         return query;
     }
@@ -15,7 +15,7 @@ class SearchView {
     }
 
     clearSearch() {
-        this._parentElement.querySelector('.searcb_field').value = '';
+        this._parentElement.querySelector('.search__field').value = '';
     }
 }
 

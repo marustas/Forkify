@@ -1,10 +1,10 @@
 import icons from "url:../../img/icons.svg";
 
 export default class View {
-    _data;
+  _data;
 
-    renderSpinner() {
-        const markup = `
+  renderSpinner() {
+    const markup = `
         <div class="spinner">
         <svg>
           <use href="${icons}#icon-loader"></use>
@@ -12,12 +12,12 @@ export default class View {
       </div>
       `;
 
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
 
-    renderMessage(message = this._errorMessage) {
-        const markup = `
+  renderMessage(message = this._errorMessage) {
+    const markup = `
         <div class="error">
                 <div>
                   <svg>
@@ -27,19 +27,21 @@ export default class View {
                 <p>${message}</p>
               </div>
               `;
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
 
-    render(data) {
-        this._data = data;
+  render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) return this.renderMessage();
 
-        const markup = this._generateMarkup();
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', markup)
-    }
+    this._data = data;
 
-    _clear() {
-        this._parentElement.innerHTML = '';
-    }
+    const markup = this._generateMarkup();
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup)
+  }
+
+  _clear() {
+    this._parentElement.innerHTML = '';
+  }
 }
