@@ -37,7 +37,7 @@ const controlSearchReuslts = async function () {
 
     await model.loadSearchResults(query);
 
-    resultsView.render(model.state.search.results)
+    resultsView.render(model.getSearchResultsPage(1))
   } catch (error) {
     recipeView.renderMessage(error);
   }
