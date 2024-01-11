@@ -5,8 +5,6 @@ export default class View {
 
 
   update(data) {
-    if (!data || (Array.isArray(data) && data.length === 0)) return this.renderMessage();
-
     this._data = data;
 
     const newMarkup = this._generateMarkup();
@@ -19,12 +17,12 @@ export default class View {
     newElements.forEach((newElement, i) => {
       const curElement = curElements[i];
 
-      if (!newElement.isEqualNode(curElement) && newElement.firstChild.nodeValue.trim() !== '') {
+      if (!newElement.isEqualNode(curElement) && newElement.firstChild && newElement.firstChild.nodeValue.trim() !== '') {
         curElement.textContent = newElement.textContent;
       }
 
       if (!newElement.isEqualNode(curElement)) {
-        Array.from(newElement.attributes).forEach((newAttribute) =>
+        Array.from(newElement.attributes).forEach(newAttribute =>
           curElement.setAttribute(newAttribute.name, newAttribute.value));
       }
     })
