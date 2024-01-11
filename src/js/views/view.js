@@ -3,6 +3,33 @@ import icons from "url:../../img/icons.svg";
 export default class View {
   _data;
 
+
+  update(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) return this.renderMessage();
+
+    this._data = data;
+
+    const newMarkup = this._generateMarkup();
+
+    //create a new DOM object 
+    const newDOM = document.createRange().createContextualFragment(newMarkup);
+    const newElements = Array.from(newDOM.querySelectorAll('*'));
+    const curElements = Array.from(this._parentElement.querySelectorAll('*'));
+
+    newElements.forEach((newElement, i) => {
+      const curElement = curElements[i];
+
+      if (!newElement.isEqualNode(curElement) && newElement.firstChild.nodeValue.trim() !== '') {
+        curElement.textContent = newElement.textContent;
+      }
+
+      if (!newElement.isEqualNode(curElement)) {
+        Array.from(newElement.attributes).forEach((newAttribute) =>
+          curElement.setAttribute(newAttribute.name, newAttribute.value));
+      }
+    })
+  }
+
   renderSpinner() {
     const markup = `
         <div class="spinner">

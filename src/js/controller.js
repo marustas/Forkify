@@ -48,7 +48,7 @@ const controlSearchReuslts = async function () {
 const controlServings = function (newServings) {
   model.updateServings(newServings);
 
-  recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 }
 
 const controlPagination = function (goToPage) {
