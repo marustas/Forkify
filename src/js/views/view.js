@@ -3,7 +3,6 @@ import icons from "url:../../img/icons.svg";
 export default class View {
   _data;
 
-
   update(data) {
     this._data = data;
 
@@ -56,12 +55,14 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  render(data) {
+  render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0)) return this.renderMessage();
 
     this._data = data;
 
     const markup = this._generateMarkup();
+
+    if (!render) return markup;
 
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup)
@@ -70,5 +71,4 @@ export default class View {
   _clear() {
     this._parentElement.innerHTML = '';
   }
-
 }

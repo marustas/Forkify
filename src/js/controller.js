@@ -6,6 +6,7 @@ import recipeView from "./views/recipeView.js";
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import bookmarksView from './views/bookmarksView.js';
 
 if (module.hot) {
   module.hot.accept();
@@ -18,7 +19,8 @@ const controlRecipe = async function () {
     if (!id) return;
     recipeView.renderSpinner();
 
-    resultsView.render(model.getSearchResultsPage());
+    resultsView.update(model.getSearchResultsPage());
+    bookmarksView.update(model.state.bookmarks);
 
     await model.loadRecipe(id);
 
@@ -61,6 +63,9 @@ const controlPagination = function (goToPage) {
 const controlAddBookmark = function () {
   model.state.recipe.bookmarked ? model.deleteBookmark(model.state.recipe.id) : model.addBookmark(model.state.recipe);
   recipeView.update(model.state.recipe);
+
+  bookmarksView.render(model.state.bookmarks);
+  console.log(model.state.recipe.bookmarked);
 }
 
 const init = function () {
@@ -72,7 +77,3 @@ const init = function () {
 }
 
 init();
-
-// https://forkify-api.herokuapp.com/v2
-
-///////////////////////////////////////
