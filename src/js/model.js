@@ -1,5 +1,5 @@
 import { URL, KEY } from "./config";
-import { getJSON, sendJSON } from "./helpers";
+import { AJAX } from "./helpers";
 import { RESULTS_PER_PAGE } from "./config";
 
 export const state = {
@@ -30,7 +30,7 @@ const createRecipeObject = function (data) {
 export const loadRecipe = async function (id) {
     try {
         const url = `${URL}/${id}`;
-        const data = await getJSON(url);
+        const data = await AJAX(url);
 
         state.recipe = createRecipeObject(data);
 
@@ -121,7 +121,7 @@ export const uploadRecipe = async function (newRecipe) {
             ingredients: ingredients
         }
 
-        const data = await sendJSON(`${URL}?key=${KEY}`, recipe)
+        const data = await AJAX(`${URL}?key=${KEY}`, recipe)
         state.recipe = createRecipeObject(data);
         addBookmark(state.recipe);
     } catch (error) {
