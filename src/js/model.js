@@ -29,7 +29,7 @@ const createRecipeObject = function (data) {
 }
 export const loadRecipe = async function (id) {
     try {
-        const url = `${URL}/${id}`;
+        const url = `${URL}/${id}?key=${KEY}`;
         const data = await AJAX(url);
 
         state.recipe = createRecipeObject(data);
@@ -46,7 +46,7 @@ export const loadRecipe = async function (id) {
 export const loadSearchResults = async function (query) {
     try {
         state.search.query = query;
-        const data = await getJSON(`${URL}?search=${query}`);
+        const data = await AJAX(`${URL}?search=${query}&key=${KEY}`);
 
         state.search.results = data.data.recipes.map((recipe) => {
             return {
@@ -54,6 +54,7 @@ export const loadSearchResults = async function (query) {
                 title: recipe.title,
                 publisher: recipe.publisher,
                 image: recipe.image_url,
+                ...(recipe.key && { key: recipe.key })
             }
         })
 
