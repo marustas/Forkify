@@ -1,6 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
+import { MODAL_TIMEOUT } from './config.js';
 import * as model from "./model.js";
 import recipeView from "./views/recipeView.js";
 import searchView from './views/searchView.js';
@@ -27,7 +28,7 @@ const controlRecipe = async function () {
 
     recipeView.render(model.state.recipe);
   } catch (error) {
-    recipeView.renderMessage();
+    recipeView.renderError();
   }
 };
 
@@ -45,7 +46,7 @@ const controlSearchReuslts = async function () {
 
     paginationView.render(model.state.search);
   } catch (error) {
-    recipeView.renderMessage(error);
+    recipeView.renderError();
   }
 }
 
@@ -74,10 +75,17 @@ const controlBookmarks = function () {
 
 const controlAddRecipe = async function (newRecipe) {
   try {
+    addRecipeView.renderSpinner();
     await model.uploadRecipe(newRecipe);
+    recipeView.render(model.state.recipe);
+
+    addRecipeView.renderMessage();
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODAL_TIMEOUT * 1000)
   } catch (error) {
     console.log(error);
-    addRecipeView.renderMessage(error.message);
+    addRecipeView.renderError(error.message);
   }
 }
 
