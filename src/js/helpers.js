@@ -1,6 +1,5 @@
 import { TIMEOUT } from "./config";
 
-
 export const AJAX = async function (url, uploadData = undefined) {
     try {
         const fetchPro = uploadData ? fetch(url, {
@@ -10,7 +9,7 @@ export const AJAX = async function (url, uploadData = undefined) {
         }) : fetch(url);
 
 
-        const res = await Promise.race([fetch(url), timeout(TIMEOUT)]);
+        const res = await Promise.race([fetchPro, timeout(TIMEOUT)]);
         const data = await res.json();
 
         if (!res.ok) throw new Error(`${data.message} (${res.status})`)
@@ -19,7 +18,6 @@ export const AJAX = async function (url, uploadData = undefined) {
     } catch (error) {
         throw error;
     }
-
 }
 
 // export const sendJSON = async function (url, payload) {

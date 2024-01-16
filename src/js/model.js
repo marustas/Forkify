@@ -1,6 +1,6 @@
 import { URL, KEY } from "./config";
-import { AJAX } from "./helpers";
 import { RESULTS_PER_PAGE } from "./config";
+import { AJAX } from "./helpers";
 
 export const state = {
     recipe: {},
