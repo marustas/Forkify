@@ -1,5 +1,4 @@
-import { URL, KEY } from "./config";
-import { RESULTS_PER_PAGE } from "./config";
+import { URL, KEY, RESULTS_PER_PAGE } from "./config";
 import { AJAX } from "./helpers";
 
 export const state = {
